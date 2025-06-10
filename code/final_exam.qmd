@@ -6,7 +6,7 @@ format: html
 ```{r setup}
 library(tidyverse)
 # load your data
-my_data <- read_csv("data/your_data.csv")
+
 
 ```
 
@@ -14,7 +14,10 @@ my_data <- read_csv("data/your_data.csv")
 
 ##a. Transparent statistical methods 
 
+[In part 1 my co-worker used a correlation test to assess the linear relationship between the distance from the headwater (km) and the annual nitrogen load (kg year⁻¹). In their statement they use the term "correlation" and provide a p-value. In part 2 they used an analysis of variance (ANOVA) to compare the mean nitrogen load across more than one course category (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands). ANOVA is usually sued to test for differences in means cross more than two groups, so we can infer that this is what they likely used.]
+
 ##b. More information needed 
+[One test that they could do to provide more context to the results is look into the effect size. Only including a p-value tells us that the difference likely exists but not how large or significant that difference is. By including an effect size would help to assign a quantity for how much of the variation in nitrogen load can be explained by the type of source its coming fro, which is critical for making informed management decisions. Another test that could be done is Tukey's HSD or post-doc pairwise comparison as the results from the ANOVA only tell that some group means differ but doesn't say which ones are different from each other. Doing a post-hoc test would identify whether, for example, nitrogen load from waste water treatment differed significantly than that from fertilizer.] 
 
 ##c. Suggestions for rewriting
 
