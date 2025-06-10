@@ -7,7 +7,7 @@ format:
 
 ```{r setup}
 library(tidyverse)
-library(lubridate)
+library(ggplot2)
 # load your data
 sst <- read_csv("../data/SST_SBC.csv") #read one folder up so can find csv in data folder b/c Quarto in code folder 
 ```
@@ -53,7 +53,7 @@ sst_clean <- sst |>
   
   # summarize mean sea surface temperature
   summarize(
-    mean_sst = mean(sst, na.rm = TRUE),
+    mean_sst = mean(temp, na.rm = TRUE),
     .groups = "drop"
   )
 
@@ -62,9 +62,56 @@ slice_sample(sst_clean, n = 5)
 str(sst_clean)
 
 ```
-
-
 ## b. Visualize the data 
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+# make sure 'month' is ordered correctly
+sst_clean$month <- factor(sst_clean$month, levels = month.abb)
+
+# convert year to a factor for correct discrete coloring
+sst_clean$year <- factor(sst_clean$year)
+
+# summarize if needed elsewhere
+sst_summary <- sst_clean %>%
+  group_by(year, month) %>%
+  summarise(mean_sst = mean(mean_sst, na.rm = TRUE), .groups = "drop")
+
+# recreate plot
+ggplot(sst_clean, aes(x = month, y = mean_sst, group = year, color = year)) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 2) +
+  scale_color_manual(
+    values = c( # lightest to darkest blue
+      "2018" = "#ADD8E6",
+      "2019" = "#87AFC7",
+      "2020" = "#5B7F9E",
+      "2021" = "#2F4F4F",
+      "2022" = "#1C1C1C",
+      "2023" = "#000000"
+    ),
+    name = "Year"
+  ) +
+  labs(
+    x = "Month",
+    y = "Mean monthly sea surface temperature (°C)",
+    color = "Year"
+  ) +
+  theme_minimal(base_size = 10) +
+  theme(
+    panel.grid = element_blank(),  # remove grid lines
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.8),
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.background = element_rect(fill = "white", color = NA),
+    legend.position = c(0.05, 0.85),  # move legend inside top-left
+    legend.justification = c(0, 1),
+    legend.background = element_rect(fill = "white", color = NA),
+    legend.key = element_rect(fill = "white", color = NA),
+  )
+
+```
 
 
 # Problem 3. Data analysis 
