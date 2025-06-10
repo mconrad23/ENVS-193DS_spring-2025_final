@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>193DS_final</title>
+<title>ENV S 193DS Final</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -71,15 +71,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="fullcontent">
+<body>
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#problem-1.-research-writing" id="toc-problem-1.-research-writing" class="nav-link active" data-scroll-target="#problem-1.-research-writing">Problem 1. Research writing</a>
+  <ul class="collapse">
+  <li><a href="#a.-transparent-statistical-methods" id="toc-a.-transparent-statistical-methods" class="nav-link" data-scroll-target="#a.-transparent-statistical-methods">a. Transparent statistical methods</a></li>
+  <li><a href="#b.-more-information-needed" id="toc-b.-more-information-needed" class="nav-link" data-scroll-target="#b.-more-information-needed">b. More information needed</a></li>
+  <li><a href="#c.-suggestions-for-rewriting" id="toc-c.-suggestions-for-rewriting" class="nav-link" data-scroll-target="#c.-suggestions-for-rewriting">c.&nbsp;Suggestions for rewriting</a></li>
+  </ul></li>
+  <li><a href="#problem-2.-data-visualization" id="toc-problem-2.-data-visualization" class="nav-link" data-scroll-target="#problem-2.-data-visualization">Problem 2. Data visualization</a>
+  <ul class="collapse">
+  <li><a href="#a.-cleaning-and-summarizing" id="toc-a.-cleaning-and-summarizing" class="nav-link" data-scroll-target="#a.-cleaning-and-summarizing">a. Cleaning and summarizing</a></li>
+  <li><a href="#b.-visualize-the-data" id="toc-b.-visualize-the-data" class="nav-link" data-scroll-target="#b.-visualize-the-data">b. Visualize the data</a></li>
+  </ul></li>
+  <li><a href="#problem-3.-data-analysis" id="toc-problem-3.-data-analysis" class="nav-link" data-scroll-target="#problem-3.-data-analysis">Problem 3. Data analysis</a>
+  <ul class="collapse">
+  <li><a href="#a.-response-variable" id="toc-a.-response-variable" class="nav-link" data-scroll-target="#a.-response-variable">a. Response variable</a></li>
+  <li><a href="#b.-purpose-of-study" id="toc-b.-purpose-of-study" class="nav-link" data-scroll-target="#b.-purpose-of-study">b. Purpose of study</a></li>
+  <li><a href="#c.-difference-in-seasons" id="toc-c.-difference-in-seasons" class="nav-link" data-scroll-target="#c.-difference-in-seasons">c.&nbsp;Difference in “seasons”</a></li>
+  <li><a href="#d.-table-of-models" id="toc-d.-table-of-models" class="nav-link" data-scroll-target="#d.-table-of-models">d.&nbsp;Table of models</a></li>
+  <li><a href="#e.-run-the-models" id="toc-e.-run-the-models" class="nav-link" data-scroll-target="#e.-run-the-models">e. Run the models</a></li>
+  <li><a href="#f.-check-the-diagnostics" id="toc-f.-check-the-diagnostics" class="nav-link" data-scroll-target="#f.-check-the-diagnostics">f.&nbsp;Check the diagnostics</a></li>
+  <li><a href="#g.-select-the-best-model" id="toc-g.-select-the-best-model" class="nav-link" data-scroll-target="#g.-select-the-best-model">g. Select the best model</a></li>
+  <li><a href="#h.-visualize-the-model-predictions" id="toc-h.-visualize-the-model-predictions" class="nav-link" data-scroll-target="#h.-visualize-the-model-predictions">h. Visualize the model predictions</a></li>
+  <li><a href="#i.-write-a-caption-for-your-figure." id="toc-i.-write-a-caption-for-your-figure." class="nav-link" data-scroll-target="#i.-write-a-caption-for-your-figure.">i. Write a caption for your figure.</a></li>
+  <li><a href="#j.-calculate-model-predictions" id="toc-j.-calculate-model-predictions" class="nav-link" data-scroll-target="#j.-calculate-model-predictions">j. Calculate model predictions</a></li>
+  <li><a href="#k.-interpret-your-results" id="toc-k.-interpret-your-results" class="nav-link" data-scroll-target="#k.-interpret-your-results">k. Interpret your results</a></li>
+  </ul></li>
+  <li><a href="#probelm-4.-affective-and-exploratory-visualizations" id="toc-probelm-4.-affective-and-exploratory-visualizations" class="nav-link" data-scroll-target="#probelm-4.-affective-and-exploratory-visualizations">Probelm 4. Affective and exploratory visualizations</a>
+  <ul class="collapse">
+  <li><a href="#a.-comparing-visualizations" id="toc-a.-comparing-visualizations" class="nav-link" data-scroll-target="#a.-comparing-visualizations">a. Comparing visualizations</a></li>
+  <li><a href="#b.-sharing-your-affective-visualization" id="toc-b.-sharing-your-affective-visualization" class="nav-link" data-scroll-target="#b.-sharing-your-affective-visualization">b. Sharing your affective visualization</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">193DS_final</h1>
+<h1 class="title">ENV S 193DS Final</h1>
 </div>
 
 
@@ -112,30 +149,79 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load your data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>#Problem 1. Research writing</p>
-<p>##a. Transparent statistical methods</p>
-<p>[In part 1 my co-worker used a correlation test to assess the linear relationship between the distance from the headwater (km) and the annual nitrogen load (kg year⁻¹). In their statement they use the term “correlation” and provide a p-value. In part 2 they used an analysis of variance (ANOVA) to compare the mean nitrogen load across more than one course category (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands). ANOVA is usually sued to test for differences in means cross more than two groups, so we can infer that this is what they likely used.]</p>
-<p>##b. More information needed [One test that they could do to provide more context to the results is look into the effect size. Only including a p-value tells us that the difference likely exists but not how large or significant that difference is. By including an effect size would help to assign a quantity for how much of the variation in nitrogen load can be explained by the type of source its coming fro, which is critical for making informed management decisions. Another test that could be done is Tukey’s HSD or post-doc pairwise comparison as the results from the ANOVA only tell that some group means differ but doesn’t say which ones are different from each other. Doing a post-hoc test would identify whether, for example, nitrogen load from waste water treatment differed significantly than that from fertilizer.]</p>
-<p>##c.&nbsp;Suggestions for rewriting</p>
-<p>#Problem 2. Data visualization</p>
-<p>##a. Cleaning and summarizing</p>
-<p>##b. Visualize the data</p>
-<p>#Problem 3. Data analysis</p>
-<p>##a. Response variable</p>
-<p>##b. Purpose of study</p>
-<p>##c.&nbsp;Difference in “seasons”</p>
-<p>##d.&nbsp;Table of models</p>
-<p>##e. Run the models</p>
-<p>##f.&nbsp;Check the diagnostics</p>
-<p>##g. Select the best model</p>
-<p>##h. Visualize the model predictions</p>
-<p>##i. Write a caption for your figure.</p>
-<p>##j. Calculate model predictions</p>
-<p>##k. Interpret your results</p>
-<p>#Probelm 4. Affective and exploratory visualizations</p>
-<p>##a. Comparing visualizations</p>
-<p>##b. Sharing your affective visualization</p>
+<section id="problem-1.-research-writing" class="level1">
+<h1>Problem 1. Research writing</h1>
+<section id="a.-transparent-statistical-methods" class="level2">
+<h2 class="anchored" data-anchor-id="a.-transparent-statistical-methods">a. Transparent statistical methods</h2>
+<p>In part 1 my co-worker used a correlation test to assess the linear relationship between the distance from the headwater (km) and the annual nitrogen load (kg year⁻¹). In their statement they use the term “correlation” and provide a p-value. In part 2 they used an analysis of variance (ANOVA) to compare the mean nitrogen load across more than one course category (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands). ANOVA is usually sued to test for differences in means cross more than two groups, so we can infer that this is what they likely used.</p>
+</section>
+<section id="b.-more-information-needed" class="level2">
+<h2 class="anchored" data-anchor-id="b.-more-information-needed">b. More information needed</h2>
+<p>One test that they could do to provide more context to the results is look into the effect size. Only including a p-value tells us that the difference likely exists but not how large or significant that difference is. By including an effect size would help to assign a quantity for how much of the variation in nitrogen load can be explained by the type of source its coming fro, which is critical for making informed management decisions. Another test that could be done is Tukey’s HSD or post-doc pairwise comparison as the results from the ANOVA only tell that some group means differ but doesn’t say which ones are different from each other. Doing a post-hoc test would identify whether, for example, nitrogen load from waste water treatment differed significantly than that from fertilizer.</p>
+</section>
+<section id="c.-suggestions-for-rewriting" class="level2">
+<h2 class="anchored" data-anchor-id="c.-suggestions-for-rewriting">c.&nbsp;Suggestions for rewriting</h2>
+<p>Suggested rewrite for part 1:</p>
+<p>As the nitrogen load tends to increase or decrease with distance from the headwater, this suggests a spatial trend in nutrient accumulation or dilution in the waters of the San Joaquin River Delta. This relationship is supported by a correlation analysis (Pearson’s correlation test: r = correlation coefficient, p = 0.03, α = significance level).</p>
+<p>Suggested rewrite for part 2:</p>
+<p>The average nitrogen load was different among land use and nitrogen source categories, which suggests that certain types of sources contribute more to nitrogen input in the San Joaquin River Delta. This was supported by an analysis of variance (F-statistic = [F-value], degrees of freedom = [df1, df2], p = 0.02, α = [significance level]). Howwver, the inclusion of post-hoc comparisons and effect size measures are needed to identify which sources differ and the magnitude of their contributions.</p>
+</section>
+</section>
+<section id="problem-2.-data-visualization" class="level1">
+<h1>Problem 2. Data visualization</h1>
+<section id="a.-cleaning-and-summarizing" class="level2">
+<h2 class="anchored" data-anchor-id="a.-cleaning-and-summarizing">a. Cleaning and summarizing</h2>
+</section>
+<section id="b.-visualize-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="b.-visualize-the-data">b. Visualize the data</h2>
+</section>
+</section>
+<section id="problem-3.-data-analysis" class="level1">
+<h1>Problem 3. Data analysis</h1>
+<section id="a.-response-variable" class="level2">
+<h2 class="anchored" data-anchor-id="a.-response-variable">a. Response variable</h2>
+</section>
+<section id="b.-purpose-of-study" class="level2">
+<h2 class="anchored" data-anchor-id="b.-purpose-of-study">b. Purpose of study</h2>
+</section>
+<section id="c.-difference-in-seasons" class="level2">
+<h2 class="anchored" data-anchor-id="c.-difference-in-seasons">c.&nbsp;Difference in “seasons”</h2>
+</section>
+<section id="d.-table-of-models" class="level2">
+<h2 class="anchored" data-anchor-id="d.-table-of-models">d.&nbsp;Table of models</h2>
+</section>
+<section id="e.-run-the-models" class="level2">
+<h2 class="anchored" data-anchor-id="e.-run-the-models">e. Run the models</h2>
+</section>
+<section id="f.-check-the-diagnostics" class="level2">
+<h2 class="anchored" data-anchor-id="f.-check-the-diagnostics">f.&nbsp;Check the diagnostics</h2>
+</section>
+<section id="g.-select-the-best-model" class="level2">
+<h2 class="anchored" data-anchor-id="g.-select-the-best-model">g. Select the best model</h2>
+</section>
+<section id="h.-visualize-the-model-predictions" class="level2">
+<h2 class="anchored" data-anchor-id="h.-visualize-the-model-predictions">h. Visualize the model predictions</h2>
+</section>
+<section id="i.-write-a-caption-for-your-figure." class="level2">
+<h2 class="anchored" data-anchor-id="i.-write-a-caption-for-your-figure.">i. Write a caption for your figure.</h2>
+</section>
+<section id="j.-calculate-model-predictions" class="level2">
+<h2 class="anchored" data-anchor-id="j.-calculate-model-predictions">j. Calculate model predictions</h2>
+</section>
+<section id="k.-interpret-your-results" class="level2">
+<h2 class="anchored" data-anchor-id="k.-interpret-your-results">k. Interpret your results</h2>
+</section>
+</section>
+<section id="probelm-4.-affective-and-exploratory-visualizations" class="level1">
+<h1>Probelm 4. Affective and exploratory visualizations</h1>
+<section id="a.-comparing-visualizations" class="level2">
+<h2 class="anchored" data-anchor-id="a.-comparing-visualizations">a. Comparing visualizations</h2>
+</section>
+<section id="b.-sharing-your-affective-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="b.-sharing-your-affective-visualization">b. Sharing your affective visualization</h2>
 <p>[Attendance to workshop 10 during Week 10 :)]</p>
+</section>
+</section>
 
 </main>
 <!-- /main column -->
