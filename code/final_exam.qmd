@@ -7,8 +7,9 @@ format:
 
 ```{r setup}
 library(tidyverse)
+library(lubridate)
 # load your data
-
+sst <- read_csv("../data/SST_SBC.csv") #read one folder up so can find csv in data folder b/c Quarto in code folder 
 ```
 
 # Problem 1. Research writing 
@@ -32,6 +33,36 @@ The average nitrogen load was different among land use and nitrogen source categ
 # Problem 2. Data visualization 
 
 ## a. Cleaning and summarizing
+
+```{r}
+sst_clean <- sst |>
+  # convert date column to date format
+  mutate(date = ymd(date)) |>  
+  
+  # extract year and month
+  mutate(
+    year = year(date),
+    month = month(date, label = TRUE)
+  ) |>
+  
+  # filter to 2018–2023
+  filter(year >= 2018, year <= 2023) |>
+  
+  # group by site, year, and month
+  group_by(site, year, month) |>
+  
+  # summarize mean sea surface temperature
+  summarize(
+    mean_sst = mean(sst, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# view structure and sample of cleaned data
+slice_sample(sst_clean, n = 5)
+str(sst_clean)
+
+```
+
 
 ## b. Visualize the data 
 
