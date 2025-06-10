@@ -113,16 +113,29 @@ ggplot(sst_clean, aes(x = month, y = mean_sst, group = year, color = year)) +
 
 ```
 
-
 # Problem 3. Data analysis 
 
 ## a. Response variable 
 
+For this data set a 1 represents that a Swift Parrot had occupied a nest during a given season and a 0 means that a nest was unoccupied by Swift Parrots 
+
 ## b. Purpose of study
+
+The main difference between the Swift Parrots and the other bird species in this study is that they are the critically endangered target species in this study, whereas Common Starlings and Tree Martins are competitors. The goal of this study is to assess if nest boxes support the conversation of this species or if they are mostly used by the two competing species. 
 
 ## c. Difference in “seasons”
 
+The authors use the term "seasons" to refer to the study years of 2016 and 2019.
+These years differ because for the Swift Parrots 2016 was a breeding season and 2019 was not; this reflects the temporal variation in occupancy patterns of the species 
+
 ## d. Table of models 
+
+| Model Number | Season Included | Distance to Forest Edge Included | Model Description                    |
+|--------------|------------------|----------------------------------|--------------------------------------|
+| 1            | No               | No                               | Null model (intercept only)          |
+| 2            | Yes              | Yes                              | Saturated model with both predictors |
+| 3            | Yes              | No                               | Season only                          |
+| 4            | No               | Yes                              | Distance to forest edge only         |
 
 ## e. Run the models 
 
@@ -138,9 +151,18 @@ ggplot(sst_clean, aes(x = month, y = mean_sst, group = year, color = year)) +
 
 ## k. Interpret your results 
 
-# Probelm 4. Affective and exploratory visualizations
+# Problem 4. Affective and exploratory visualizations
 
 ## a. Comparing visualizations
+
+How are the visualizations different from each other in the way you have represented your data?
+
+What similarities do you see between all your visualizations?
+
+What patterns (e.g. differences in means/counts/proportions/medians, trends through time, relationships between variables) do you see in each visualization?
+Are these different between visualizations? If so, why? If not, why not?
+
+What kinds of feedback did you get during week 9 in workshop or from the instructors? How did you implement or try those suggestions? If you tried and kept those suggestions, explain how and why; if not, explain why not.
 
 ## b. Sharing your affective visualization 
 
