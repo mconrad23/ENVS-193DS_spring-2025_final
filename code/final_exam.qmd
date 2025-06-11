@@ -6,7 +6,8 @@ format:
   html:
     toc: true        
     toc-location: left 
-    toc-floating: true 
+    toc-floating: true
+    theme: cosmo 
 ---
 
 ```{r setup}
