@@ -1,7 +1,7 @@
 ---
 title: "ENV S 193DS Final"
-name: "Madison Conrad"
-date: "06-09-2025"
+author: "Madison Conrad"
+date: "06-10-2025"
 format: 
   html:
     toc: true        
@@ -26,25 +26,27 @@ nest_boxes <- read_csv("../data/occdist.csv") #read in nest occupancy data set, 
 
 ```
 
-# Problem 1. Research writing 
+# Problem 1. Research writing
 
-## a. Transparent statistical methods 
+## a. Transparent statistical methods
 
 In part 1 my co-worker used a correlation test to assess the linear relationship between the distance from the headwater (km) and the annual nitrogen load (kg year⁻¹). In their statement they use the term "correlation" and provide a p-value. In part 2 they used an analysis of variance (ANOVA) to compare the mean nitrogen load across more than one course category (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands). ANOVA is usually sued to test for differences in means cross more than two groups, so we can infer that this is what they likely used.
 
-## b. More information needed 
-One test that they could do to provide more context to the results is look into the effect size. Only including a p-value tells us that the difference likely exists but not how large or significant that difference is. By including an effect size would help to assign a quantity for how much of the variation in nitrogen load can be explained by the type of source its coming fro, which is critical for making informed management decisions. Another test that could be done is Tukey's HSD or post-doc pairwise comparison as the results from the ANOVA only tell that some group means differ but doesn't say which ones are different from each other. Doing a post-hoc test would identify whether, for example, nitrogen load from waste water treatment differed significantly than that from fertilizer. 
+## b. More information needed
+
+One test that they could do to provide more context to the results is look into the effect size. Only including a p-value tells us that the difference likely exists but not how large or significant that difference is. By including an effect size would help to assign a quantity for how much of the variation in nitrogen load can be explained by the type of source its coming fro, which is critical for making informed management decisions. Another test that could be done is Tukey's HSD or post-doc pairwise comparison as the results from the ANOVA only tell that some group means differ but doesn't say which ones are different from each other. Doing a post-hoc test would identify whether, for example, nitrogen load from waste water treatment differed significantly than that from fertilizer.
 
 ## c. Suggestions for rewriting
+
 Suggested rewrite for part 1:
 
 As the nitrogen load tends to increase or decrease with distance from the headwater, this suggests a spatial trend in nutrient accumulation or dilution in the waters of the San Joaquin River Delta. This relationship is supported by a correlation analysis (Pearson’s correlation test: r = correlation coefficient, p = 0.03, α = significance level).
 
 Suggested rewrite for part 2:
 
-The average nitrogen load was different among land use and nitrogen source categories, which suggests that certain types of sources contribute more to nitrogen input in the San Joaquin River Delta. This was supported by an analysis of variance (F-statistic = [F-value], degrees of freedom = [df1, df2], p = 0.02, α = [significance level]). Howwver, the inclusion of post-hoc comparisons and effect size measures are needed to identify which sources differ and the magnitude of their contributions.
+The average nitrogen load was different among land use and nitrogen source categories, which suggests that certain types of sources contribute more to nitrogen input in the San Joaquin River Delta. This was supported by an analysis of variance (F-statistic = \[F-value\], degrees of freedom = \[df1, df2\], p = 0.02, α = \[significance level\]). Howwver, the inclusion of post-hoc comparisons and effect size measures are needed to identify which sources differ and the magnitude of their contributions.
 
-# Problem 2. Data visualization 
+# Problem 2. Data visualization
 
 ## a. Cleaning and summarizing
 
@@ -76,7 +78,8 @@ slice_sample(sst_clean, n = 5)
 str(sst_clean)
 
 ```
-## b. Visualize the data 
+
+## b. Visualize the data
 
 ```{r}
 library(ggplot2)
@@ -127,37 +130,33 @@ ggplot(sst_clean, aes(x = month, y = mean_sst, group = year, color = year)) +
 
 ```
 
-# Problem 3. Data analysis 
+# Problem 3. Data analysis
 
-## a. Response variable 
+## a. Response variable
 
 For this data set a 1 represents that a Swift Parrot had occupied a nest during a given season and a 0 means that a nest was unoccupied by Swift Parrots (either occupied by another species or completely unoccupied)
 
-sp		categorical	1 = swift parrot 	0 = other species (or empty)
-cs		categorical	1 = common starling 	0 = other species (or empty)
-e		categorical	1 = unoccupied (empty) 	0 = occupied
-tm		categorical	1 = tree martin		0 = other species
-
+sp categorical 1 = swift parrot 0 = other species (or empty) cs categorical 1 = common starling 0 = other species (or empty) e categorical 1 = unoccupied (empty) 0 = occupied tm categorical 1 = tree martin 0 = other species
 
 ## b. Purpose of study
 
-The main difference between the Swift Parrots and the other bird species in this study is that they are the critically endangered target species in this study, whereas Common Starlings and Tree Martins are competitors. The goal of this study is to assess if nest boxes support the conversation of this species or if they are mostly used by the two competing species. 
+The main difference between the Swift Parrots and the other bird species in this study is that they are the critically endangered target species in this study, whereas Common Starlings and Tree Martins are competitors. The goal of this study is to assess if nest boxes support the conversation of this species or if they are mostly used by the two competing species.
 
 ## c. Difference in “seasons”
 
-The authors use the term "seasons" to refer to the study years of 2016 and 2019.
-These years differ because for the Swift Parrots 2016 was a breeding season and 2019 was not; this reflects the temporal variation in occupancy patterns of the species 
+The authors use the term "seasons" to refer to the study years of 2016 and 2019. These years differ because for the Swift Parrots 2016 was a breeding season and 2019 was not; this reflects the temporal variation in occupancy patterns of the species
 
-## d. Table of models 
+## d. Table of models
 
-| Model Number | Season Included | Distance to Forest Edge Included | Model Description                    |
-|--------------|------------------|----------------------------------|--------------------------------------|
-| 1            | No               | No                               | Null model (intercept only)          |
-| 2            | Yes              | Yes                              | Saturated model with both predictors |
-| 3            | Yes              | No                               | Season only                          |
-| 4            | No               | Yes                              | Distance to forest edge only         |
+| Model Number | Season Included | Distance to Forest Edge Included | Model Description |
+|---------------|---------------|--------------------|-----------------------|
+| 1 | No | No | Null model (intercept only) |
+| 2 | Yes | Yes | Saturated model with both predictors |
+| 3 | Yes | No | Season only |
+| 4 | No | Yes | Distance to forest edge only |
 
-## e. Run the models 
+## e. Run the models
+
 ```{r}
 #code to run all of models that described would need in d. 
 
@@ -179,6 +178,7 @@ mod4 <- glm(sp ~ `edge distance`, data = nest_boxes, family = binomial)
 ```
 
 ## f. Check the diagnostics
+
 ```{r}
 
 #check diagnostic of each model using simulated residuals & display plots 
@@ -200,14 +200,17 @@ res_distance <- simulateResiduals(mod4)
 plot(res_distance, main = "Diagnostics: Edge Distance-Only Model")
 
 ```
-## g. Select the best model 
+
+## g. Select the best model
+
 ```{r}
 AIC(mod1, mod2, mod3, mod4)
 ```
 
-The best model as determined by Akaike’s Information Criterion (AIC) was the saturated model (mod2), which included both season and distance to forest edge as predictors with an AIC value of 226.21. This model had the lowest AIC of all four models tested,  which indicates that combining the effects of season and edge distance to the forest best explain the variation in nest occupancy by the Swift Parrots.
+The best model as determined by Akaike’s Information Criterion (AIC) was the saturated model (mod2), which included both season and distance to forest edge as predictors with an AIC value of 226.21. This model had the lowest AIC of all four models tested, which indicates that combining the effects of season and edge distance to the forest best explain the variation in nest occupancy by the Swift Parrots.
 
-## h. Visualize the model predictions 
+## h. Visualize the model predictions
+
 ```{r}
 
 # get predicted probabilities and 95% CI from fitted model 'mod2'
@@ -257,13 +260,14 @@ ggplot() +
   scale_fill_manual(values = c("2016" = "turquoise", "2019" = "forestgreen"))
 
 ```
-## i. Write a caption for your figure. 
+
+## i. Write a caption for your figure.
 
 Figure 5. Swift Parrot Nest Box Occupancy Probability by Distance to Forest Edge and Season
 
-This figure shows the relationship between the distance to the forest edge and year to the probability of a nest box being occupied by the Swift Parrot. The points represent the observed occupancy data and lines drawn between the points show the model-predicted probabilities taken from Model #2; shaded ribbons are supposed to represent the corresponding 95% confidence intervals. This plot illustrates that there is a decline in occupancy probability as distance from the forest edge increases as we see seasonal differences represented by there being separate prediction lines for each year (Data source: Adapted from Stojanovic et al. (2021), "Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird." Biological Conservation, 258, 109136) 
+This figure shows the relationship between the distance to the forest edge and year to the probability of a nest box being occupied by the Swift Parrot. The points represent the observed occupancy data and lines drawn between the points show the model-predicted probabilities taken from Model #2; shaded ribbons are supposed to represent the corresponding 95% confidence intervals. This plot illustrates that there is a decline in occupancy probability as distance from the forest edge increases as we see seasonal differences represented by there being separate prediction lines for each year (Data source: Adapted from Stojanovic et al. (2021), "Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird." Biological Conservation, 258, 109136)
 
-## j. Calculate model predictions 
+## j. Calculate model predictions
 
 ```{r}
 
@@ -283,22 +287,23 @@ pred_points_df <- as.data.frame(pred_points)
 print(pred_points_df)
 
 ```
-## k. Interpret your results 
 
-The figure made in part h (Figure 5) shows the model predictions of the probability of nest box occupancy by the Swift Parrot as a function of distance from the forest edge, with separate lines for each season (2016 and 2019). The predicted probabilities calculated at specific distances (0 to 900 m) made in part j reveal that occupancy is higher at the forest edge and as distance from the forest edge increased to 900 m, the probability of occupancy decreased rapidly; this indicates a significant negative relationship between distance and the probability of occupancy. This trend likely reflects the species' preference or dependence on forest edge habitats for food availability and protection from predation and differences between the two seasons analyzed may reflect annual variations in species population or environmental conditions that affect the suitability of the habitat. This trend is also in opposition to a comperting species examined in the study, the Tree Martin, who's occupancy of nest boxes increases with their distance from the forest edge in both 2016 and 2019. 
+## k. Interpret your results
+
+The figure made in part h (Figure 5) shows the model predictions of the probability of nest box occupancy by the Swift Parrot as a function of distance from the forest edge, with separate lines for each season (2016 and 2019). The predicted probabilities calculated at specific distances (0 to 900 m) made in part j reveal that occupancy is higher at the forest edge and as distance from the forest edge increased to 900 m, the probability of occupancy decreased rapidly; this indicates a significant negative relationship between distance and the probability of occupancy. This trend likely reflects the species' preference or dependence on forest edge habitats for food availability and protection from predation and differences between the two seasons analyzed may reflect annual variations in species population or environmental conditions that affect the suitability of the habitat. This trend is also in opposition to a comperting species examined in the study, the Tree Martin, who's occupancy of nest boxes increases with their distance from the forest edge in both 2016 and 2019.
 
 # Problem 4. Affective and exploratory visualizations
 
 ## a. Comparing visualizations
 
-The exploratory visualization I made for Homework 2 is much more traditional in the sense that it is a box-plot that shows the correlation between productivity level and the type of music listened to for a handful of study session data entries. The affective visualization made for Homework 3 tells a more complete story about how each type of music affected my studying through the use of color, notes about my emotions and mental state, and differing sizes of brain waves 
+The exploratory visualization I made for Homework 2 is much more traditional in the sense that it is a box-plot that shows the correlation between productivity level and the type of music listened to for a handful of study session data entries. The affective visualization made for Homework 3 tells a more complete story about how each type of music affected my studying through the use of color, notes about my emotions and mental state, and differing sizes of brain waves
 
-Between the visualizations I would say there are similarities in that greater productivity is associated more closely with listening to classical or ambient music. Both also show that I am less focused and productive when listening to elctropop and folk music 
+Between the visualizations I would say there are similarities in that greater productivity is associated more closely with listening to classical or ambient music. Both also show that I am less focused and productive when listening to elctropop and folk music
 
-Homework 2 contains less data entries to work off of than Homework 3 but overall the trend stayed the same; greater productivity and focus is associated with classical and ambient music and more distraction is associated with electropop and folk music. I would say that it is hard to make definitive conclusions, as there are more instances where I am listening to either classical or ambient music while studying than when I choose to listen to electropop or folk music, meaning that the sample size for these music types is greater and more predictable. 
+Homework 2 contains less data entries to work off of than Homework 3 but overall the trend stayed the same; greater productivity and focus is associated with classical and ambient music and more distraction is associated with electropop and folk music. I would say that it is hard to make definitive conclusions, as there are more instances where I am listening to either classical or ambient music while studying than when I choose to listen to electropop or folk music, meaning that the sample size for these music types is greater and more predictable.
 
-I got some feedback about how to orient the visualization as I was having trouble figuring out how to do a horizontal color gradient and a peer recommended I try orienting it diagonally across my paper which worked better. Also, this wasn't a recommendation from a classmate or instrcutor, but I decided to pivot my visualization a bit from my initail sketch to use brain waves as the representation of the focus level, which I feel worked better to convey how I was feeling in each study session based on the music type 
+I got some feedback about how to orient the visualization as I was having trouble figuring out how to do a horizontal color gradient and a peer recommended I try orienting it diagonally across my paper which worked better. Also, this wasn't a recommendation from a classmate or instrcutor, but I decided to pivot my visualization a bit from my initail sketch to use brain waves as the representation of the focus level, which I feel worked better to convey how I was feeling in each study session based on the music type
 
-## b. Sharing your affective visualization 
+## b. Sharing your affective visualization
 
 Attendance to workshop 10 during Week 10 :)
