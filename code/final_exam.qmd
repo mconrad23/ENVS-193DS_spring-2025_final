@@ -17,7 +17,6 @@ library(ggplot2)
 library(lme4)
 library(DHARMa)
 library(MuMIn)
-library(ggplot2)
 library(dplyr)
 library(emmeans) 
 
@@ -83,8 +82,6 @@ str(sst_clean)
 ## b. Visualize the data
 
 ```{r}
-library(ggplot2)
-library(dplyr)
 
 # make sure 'month' is ordered correctly
 sst_clean$month <- factor(sst_clean$month, levels = month.abb)
@@ -123,7 +120,7 @@ ggplot(sst_clean, aes(x = month, y = mean_sst, group = year, color = year)) +
     panel.border = element_rect(color = "black", fill = NA, linewidth = 0.8),
     panel.background = element_rect(fill = "white", color = NA),
     plot.background = element_rect(fill = "white", color = NA),
-    legend.position = c(0.05, 0.85),  # move legend inside top-left
+    legend.position.inside = c(0.05, 0.85),  # move legend inside top-left
     legend.justification = c(0, 1),
     legend.background = element_rect(fill = "white", color = NA),
     legend.key = element_rect(fill = "white", color = NA),
@@ -229,7 +226,7 @@ ggplot() +
              aes(x = `edge distance`, y = sp, color = factor(season)), #distance to forest on x-axis & repsonse variable (whether SP in nest or not) on y-axis, do by "year" (called season in dataset)
              alpha = 0.5) +
   
-  # predicted probabilities as lines that are grouped by season/year 
+  # predicted probabilities as lines grouped by season/year 
   geom_line(data = preds_df,
             aes(x = `edge distance`, y = prob, color = factor(season), group = season),
             linewidth = 1) +
@@ -242,14 +239,14 @@ ggplot() +
   
   # full axis labels and plot title
   labs(
-    x = "Distance to Forest Edge (meters)",
-    y = "Probability of Nest Box Occupancy",
-    color = "Season",
+    x = "Distance to Forest Edge (meters)", #renaming x-axis 
+    y = "Probability of Nest Box Occupancy", #renaming y-axis 
+    color = "Season", #grouping by season/year 
     fill = "Season",
-    title = "Swift Parrot Nest Box Occupancy: Model Predictions with 95% Confidence Intervals"
+    title = "Swift Parrot Nest Box Occupancy: Model Predictions with 95% Confidence Intervals" #title for overall plot 
   ) +
   
-  # Minimal theme with no gridlines
+  # minimal theme with no gridlines in background 
   theme_minimal() +
   theme(
     panel.grid.major = element_blank(),
