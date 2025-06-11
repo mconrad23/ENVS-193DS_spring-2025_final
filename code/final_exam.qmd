@@ -2,7 +2,9 @@
 title: "ENV S 193DS Final"
 format: 
   html:
-    toc: TRUE 
+    toc: true        
+    toc-location: left 
+    toc-floating: true 
 ---
 
 ```{r setup}
