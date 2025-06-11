@@ -8,8 +8,14 @@ format:
 ```{r setup}
 library(tidyverse)
 library(ggplot2)
-# load your data
+library(lme4)
+library(DHARMa)
+library(MuMIn)
+
+# load in data for problems 2 & 3 
 sst <- read_csv("../data/SST_SBC.csv") #read one folder up so can find csv in data folder b/c Quarto in code folder 
+nest_boxes <- read_csv("../data/occdist.csv") #read in nest occupancy data set, read one folder up
+
 ```
 
 # Problem 1. Research writing 
@@ -117,7 +123,13 @@ ggplot(sst_clean, aes(x = month, y = mean_sst, group = year, color = year)) +
 
 ## a. Response variable 
 
-For this data set a 1 represents that a Swift Parrot had occupied a nest during a given season and a 0 means that a nest was unoccupied by Swift Parrots 
+For this data set a 1 represents that a Swift Parrot had occupied a nest during a given season and a 0 means that a nest was unoccupied by Swift Parrots (either occupied by another species or completely unoccupied)
+
+sp		categorical	1 = swift parrot 	0 = other species (or empty)
+cs		categorical	1 = common starling 	0 = other species (or empty)
+e		categorical	1 = unoccupied (empty) 	0 = occupied
+tm		categorical	1 = tree martin		0 = other species
+
 
 ## b. Purpose of study
 
@@ -138,8 +150,49 @@ These years differ because for the Swift Parrots 2016 was a breeding season and 
 | 4            | No               | Yes                              | Distance to forest edge only         |
 
 ## e. Run the models 
+```{r}
+#code to run all of models that described would need in d. 
+
+# convert season to factor
+nest_boxes$season <- factor(nest_boxes$season)
+
+# model #1 null model (intercept only)
+mod1 <- glm(sp ~ 1, data = nest_boxes, family = binomial)
+
+# model #2 saturated model with both predictors
+mod2 <- glm(sp ~ season + `edge distance`,  data = nest_boxes, family = binomial)
+
+# model #3 season only 
+mod3 <- glm(sp ~ season, data = nest_boxes, family = binomial)
+
+# model #4 Distance to forest edge only
+mod4 <- glm(sp ~ `edge distance`, data = nest_boxes, family = binomial)
+
+```
 
 ## f. Check the diagnostics
+```{r}
+
+#check diagnostis of each model using simulated residuals & display plots 
+
+# model #1
+res_null <- simulateResiduals(mod1)
+plot(res_null, main = "Diagnostics: Null Model")
+
+# model #2 
+res_saturated <- simulateResiduals(mod2)
+plot(res_saturated, main = "Diagnostics: Saturated Model")
+
+# model #3 
+res_season <- simulateResiduals(mod3)
+plot(res_season, main = "Diagnostics: Season-Only Model")
+
+# model #4
+res_distance <- simulateResiduals(mod4)
+plot(res_distance, main = "Diagnostics: Edge Distance-Only Model")
+
+```
+
 
 ## g. Select the best model 
 
