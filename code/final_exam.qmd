@@ -1,5 +1,7 @@
 ---
 title: "ENV S 193DS Final"
+name: "Madison Conrad"
+date: "06-09-2025"
 format: 
   html:
     toc: true        
