@@ -1,0 +1,135 @@
+[
+  {
+    "objectID": "code/final_exam.html",
+    "href": "code/final_exam.html",
+    "title": "ENV S 193DS Final",
+    "section": "",
+    "text": "#install packages as needed in console & load in libraries \nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.0.4     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nlibrary(ggplot2)\nlibrary(lme4)\n\nLoading required package: Matrix\n\nAttaching package: 'Matrix'\n\nThe following objects are masked from 'package:tidyr':\n\n    expand, pack, unpack\n\nlibrary(DHARMa)\n\nThis is DHARMa 0.4.7. For overview type '?DHARMa'. For recent changes, type news(package = 'DHARMa')\n\nlibrary(MuMIn)\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(emmeans) \n\nWelcome to emmeans.\nCaution: You lose important information if you filter this package's results.\nSee '? untidy'\n\n# load in data for problems 2 & 3 \nsst &lt;- read_csv(\"../data/SST_SBC.csv\") #read one folder up so can find csv in data folder b/c Quarto in code folder \n\nRows: 291384 Columns: 5\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (1): site\ndbl  (3): latitude, longitude, temp\ndate (1): date\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\nnest_boxes &lt;- read_csv(\"../data/occdist.csv\") #read in nest occupancy data set, read one folder up\n\nRows: 227 Columns: 10\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (4): box, box occupant, eventID, repeated use\ndbl (6): edge distance, season, sp, cs, e, tm\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+  },
+  {
+    "objectID": "code/final_exam.html#a.-transparent-statistical-methods",
+    "href": "code/final_exam.html#a.-transparent-statistical-methods",
+    "title": "ENV S 193DS Final",
+    "section": "a. Transparent statistical methods",
+    "text": "a. Transparent statistical methods\nIn part 1 my co-worker used a correlation test to assess the linear relationship between the distance from the headwater (km) and the annual nitrogen load (kg year⁻¹). In their statement they use the term “correlation” and provide a p-value. In part 2 they used an analysis of variance (ANOVA) to compare the mean nitrogen load across more than one course category (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands). ANOVA is usually sued to test for differences in means cross more than two groups, so we can infer that this is what they likely used."
+  },
+  {
+    "objectID": "code/final_exam.html#b.-more-information-needed",
+    "href": "code/final_exam.html#b.-more-information-needed",
+    "title": "ENV S 193DS Final",
+    "section": "b. More information needed",
+    "text": "b. More information needed\nOne test that they could do to provide more context to the results is look into the effect size. Only including a p-value tells us that the difference likely exists but not how large or significant that difference is. By including an effect size would help to assign a quantity for how much of the variation in nitrogen load can be explained by the type of source its coming fro, which is critical for making informed management decisions. Another test that could be done is Tukey’s HSD or post-doc pairwise comparison as the results from the ANOVA only tell that some group means differ but doesn’t say which ones are different from each other. Doing a post-hoc test would identify whether, for example, nitrogen load from waste water treatment differed significantly than that from fertilizer."
+  },
+  {
+    "objectID": "code/final_exam.html#c.-suggestions-for-rewriting",
+    "href": "code/final_exam.html#c.-suggestions-for-rewriting",
+    "title": "ENV S 193DS Final",
+    "section": "c. Suggestions for rewriting",
+    "text": "c. Suggestions for rewriting\nSuggested rewrite for part 1:\nAs the nitrogen load tends to increase or decrease with distance from the headwater, this suggests a spatial trend in nutrient accumulation or dilution in the waters of the San Joaquin River Delta. This relationship is supported by a correlation analysis (Pearson’s correlation test: r = correlation coefficient, p = 0.03, α = significance level).\nSuggested rewrite for part 2:\nThe average nitrogen load was different among land use and nitrogen source categories, which suggests that certain types of sources contribute more to nitrogen input in the San Joaquin River Delta. This was supported by an analysis of variance (F-statistic = [F-value], degrees of freedom = [df1, df2], p = 0.02, α = [significance level]). Howwver, the inclusion of post-hoc comparisons and effect size measures are needed to identify which sources differ and the magnitude of their contributions."
+  },
+  {
+    "objectID": "code/final_exam.html#a.-cleaning-and-summarizing",
+    "href": "code/final_exam.html#a.-cleaning-and-summarizing",
+    "title": "ENV S 193DS Final",
+    "section": "a. Cleaning and summarizing",
+    "text": "a. Cleaning and summarizing\n\nsst_clean &lt;- sst |&gt;\n  # convert date column to date format\n  mutate(date = ymd(date)) |&gt;  \n  \n  # extract year and month\n  mutate(\n    year = year(date),\n    month = month(date, label = TRUE)\n  ) |&gt;\n  \n  # filter to 2018–2023\n  filter(year &gt;= 2018, year &lt;= 2023) |&gt;\n  \n  # group by site, year, and month\n  group_by(site, year, month) |&gt;\n  \n  # summarize mean sea surface temperature\n  summarize(\n    mean_sst = mean(temp, na.rm = TRUE),\n    .groups = \"drop\"\n  )\n\n# view structure and sample of cleaned data\nslice_sample(sst_clean, n = 5)\n\n# A tibble: 5 × 4\n  site    year month mean_sst\n  &lt;chr&gt;  &lt;dbl&gt; &lt;ord&gt;    &lt;dbl&gt;\n1 SITE7   2023 Jun       15.1\n2 SITE16  2018 Oct       18.8\n3 SITE10  2023 May       14.7\n4 SITE17  2019 Nov       17.5\n5 SITE4   2019 Nov       16.9\n\nstr(sst_clean)\n\ntibble [1,368 × 4] (S3: tbl_df/tbl/data.frame)\n $ site    : chr [1:1368] \"SITE1\" \"SITE1\" \"SITE1\" \"SITE1\" ...\n $ year    : num [1:1368] 2018 2018 2018 2018 2018 ...\n $ month   : Ord.factor w/ 12 levels \"Jan\"&lt;\"Feb\"&lt;\"Mar\"&lt;..: 1 2 3 4 5 6 7 8 9 10 ...\n $ mean_sst: num [1:1368] 14.5 14.1 13.7 13 13.1 ..."
+  },
+  {
+    "objectID": "code/final_exam.html#b.-visualize-the-data",
+    "href": "code/final_exam.html#b.-visualize-the-data",
+    "title": "ENV S 193DS Final",
+    "section": "b. Visualize the data",
+    "text": "b. Visualize the data\n\nlibrary(ggplot2)\nlibrary(dplyr)\n\n# make sure 'month' is ordered correctly\nsst_clean$month &lt;- factor(sst_clean$month, levels = month.abb)\n\n# convert year to a factor for correct discrete coloring\nsst_clean$year &lt;- factor(sst_clean$year)\n\n# summarize if needed elsewhere\nsst_summary &lt;- sst_clean %&gt;%\n  group_by(year, month) %&gt;%\n  summarise(mean_sst = mean(mean_sst, na.rm = TRUE), .groups = \"drop\")\n\n# recreate plot\nggplot(sst_clean, aes(x = month, y = mean_sst, group = year, color = year)) +\n  geom_line(linewidth = 0.8) +\n  geom_point(size = 2) +\n  scale_color_manual(\n    values = c( # lightest to darkest blue\n      \"2018\" = \"#ADD8E6\",\n      \"2019\" = \"#87AFC7\",\n      \"2020\" = \"#5B7F9E\",\n      \"2021\" = \"#2F4F4F\",\n      \"2022\" = \"#1C1C1C\",\n      \"2023\" = \"#000000\"\n    ),\n    name = \"Year\"\n  ) +\n  labs(\n    x = \"Month\",\n    y = \"Mean monthly sea surface temperature (°C)\",\n    color = \"Year\"\n  ) +\n  theme_minimal(base_size = 10) +\n  theme(\n    panel.grid = element_blank(),  # remove grid lines\n    panel.border = element_rect(color = \"black\", fill = NA, linewidth = 0.8),\n    panel.background = element_rect(fill = \"white\", color = NA),\n    plot.background = element_rect(fill = \"white\", color = NA),\n    legend.position = c(0.05, 0.85),  # move legend inside top-left\n    legend.justification = c(0, 1),\n    legend.background = element_rect(fill = \"white\", color = NA),\n    legend.key = element_rect(fill = \"white\", color = NA),\n  )\n\nWarning: A numeric `legend.position` argument in `theme()` was deprecated in ggplot2\n3.5.0.\nℹ Please use the `legend.position.inside` argument of `theme()` instead."
+  },
+  {
+    "objectID": "code/final_exam.html#a.-response-variable",
+    "href": "code/final_exam.html#a.-response-variable",
+    "title": "ENV S 193DS Final",
+    "section": "a. Response variable",
+    "text": "a. Response variable\nFor this data set a 1 represents that a Swift Parrot had occupied a nest during a given season and a 0 means that a nest was unoccupied by Swift Parrots (either occupied by another species or completely unoccupied)\nsp categorical 1 = swift parrot 0 = other species (or empty) cs categorical 1 = common starling 0 = other species (or empty) e categorical 1 = unoccupied (empty) 0 = occupied tm categorical 1 = tree martin 0 = other species"
+  },
+  {
+    "objectID": "code/final_exam.html#b.-purpose-of-study",
+    "href": "code/final_exam.html#b.-purpose-of-study",
+    "title": "ENV S 193DS Final",
+    "section": "b. Purpose of study",
+    "text": "b. Purpose of study\nThe main difference between the Swift Parrots and the other bird species in this study is that they are the critically endangered target species in this study, whereas Common Starlings and Tree Martins are competitors. The goal of this study is to assess if nest boxes support the conversation of this species or if they are mostly used by the two competing species."
+  },
+  {
+    "objectID": "code/final_exam.html#c.-difference-in-seasons",
+    "href": "code/final_exam.html#c.-difference-in-seasons",
+    "title": "ENV S 193DS Final",
+    "section": "c. Difference in “seasons”",
+    "text": "c. Difference in “seasons”\nThe authors use the term “seasons” to refer to the study years of 2016 and 2019. These years differ because for the Swift Parrots 2016 was a breeding season and 2019 was not; this reflects the temporal variation in occupancy patterns of the species"
+  },
+  {
+    "objectID": "code/final_exam.html#d.-table-of-models",
+    "href": "code/final_exam.html#d.-table-of-models",
+    "title": "ENV S 193DS Final",
+    "section": "d. Table of models",
+    "text": "d. Table of models\n\n\n\n\n\n\n\n\n\nModel Number\nSeason Included\nDistance to Forest Edge Included\nModel Description\n\n\n\n\n1\nNo\nNo\nNull model (intercept only)\n\n\n2\nYes\nYes\nSaturated model with both predictors\n\n\n3\nYes\nNo\nSeason only\n\n\n4\nNo\nYes\nDistance to forest edge only"
+  },
+  {
+    "objectID": "code/final_exam.html#e.-run-the-models",
+    "href": "code/final_exam.html#e.-run-the-models",
+    "title": "ENV S 193DS Final",
+    "section": "e. Run the models",
+    "text": "e. Run the models\n\n#code to run all of models that described would need in d. \n\n# convert season to factor\nnest_boxes$season &lt;- factor(nest_boxes$season)\n\n# model #1 null model (intercept only)\nmod1 &lt;- glm(sp ~ 1, data = nest_boxes, family = binomial)\n\n# model #2 saturated model with both predictors\nmod2 &lt;- glm(sp ~ season + `edge distance`,  data = nest_boxes, family = binomial)\n\n# model #3 season only \nmod3 &lt;- glm(sp ~ season, data = nest_boxes, family = binomial)\n\n# model #4 Distance to forest edge only\nmod4 &lt;- glm(sp ~ `edge distance`, data = nest_boxes, family = binomial)"
+  },
+  {
+    "objectID": "code/final_exam.html#f.-check-the-diagnostics",
+    "href": "code/final_exam.html#f.-check-the-diagnostics",
+    "title": "ENV S 193DS Final",
+    "section": "f. Check the diagnostics",
+    "text": "f. Check the diagnostics\n\n#check diagnostic of each model using simulated residuals & display plots \n\n# model #1\nres_null &lt;- simulateResiduals(mod1)\nplot(res_null, main = \"Diagnostics: Null Model\")\n\n\n\n\n\n\n\n# model #2 \nres_saturated &lt;- simulateResiduals(mod2)\nplot(res_saturated, main = \"Diagnostics: Saturated Model\")\n\n\n\n\n\n\n\n# model #3 \nres_season &lt;- simulateResiduals(mod3)\nplot(res_season, main = \"Diagnostics: Season-Only Model\")\n\n\n\n\n\n\n\n# model #4\nres_distance &lt;- simulateResiduals(mod4)\nplot(res_distance, main = \"Diagnostics: Edge Distance-Only Model\")\n\nWarning in newton(lsp = lsp, X = G$X, y = G$y, Eb = G$Eb, UrS = G$UrS, L = G$L,\n: Fitting terminated with step failure - check results carefully"
+  },
+  {
+    "objectID": "code/final_exam.html#g.-select-the-best-model",
+    "href": "code/final_exam.html#g.-select-the-best-model",
+    "title": "ENV S 193DS Final",
+    "section": "g. Select the best model",
+    "text": "g. Select the best model\n\nAIC(mod1, mod2, mod3, mod4)\n\n     df      AIC\nmod1  1 238.8140\nmod2  3 226.2057\nmod3  2 236.3208\nmod4  2 229.6180\n\n\nThe best model as determined by Akaike’s Information Criterion (AIC) was the saturated model (mod2), which included both season and distance to forest edge as predictors with an AIC value of 226.21. This model had the lowest AIC of all four models tested, which indicates that combining the effects of season and edge distance to the forest best explain the variation in nest occupancy by the Swift Parrots."
+  },
+  {
+    "objectID": "code/final_exam.html#h.-visualize-the-model-predictions",
+    "href": "code/final_exam.html#h.-visualize-the-model-predictions",
+    "title": "ENV S 193DS Final",
+    "section": "h. Visualize the model predictions",
+    "text": "h. Visualize the model predictions\n\n# get predicted probabilities and 95% CI from fitted model 'mod2'\npreds &lt;- emmeans(mod2, ~ season * `edge distance`, type = \"response\")\n\n# convert to data frame to be able to plot \npreds_df &lt;- as.data.frame(preds)\n\n\n#use prediction data to plot\n\nggplot() +\n  # raw data points\n  geom_point(data = nest_boxes,\n             aes(x = `edge distance`, y = sp, color = factor(season)), #distance to forest on x-axis & repsonse variable (whether SP in nest or not) on y-axis, do by \"year\" (called season in dataset)\n             alpha = 0.5) +\n  \n  # predicted probabilities as lines that are grouped by season/year \n  geom_line(data = preds_df,\n            aes(x = `edge distance`, y = prob, color = factor(season), group = season),\n            size = 1) +\n  \n  # confidence intervals as ribbons\n  geom_ribbon(data = preds_df,\n              aes(x = `edge distance`, ymin = asymp.LCL, ymax = asymp.UCL, \n                  fill = factor(season), group = season),\n              alpha = 0.2, color = NA) +\n  \n  # full axis labels and plot title\n  labs(\n    x = \"Distance to Forest Edge (meters)\",\n    y = \"Probability of Nest Box Occupancy\",\n    color = \"Season\",\n    fill = \"Season\",\n    title = \"Swift Parrot Nest Box Occupancy: Model Predictions with 95% Confidence Intervals\"\n  ) +\n  \n  # Minimal theme with no gridlines\n  theme_minimal() +\n  theme(\n    panel.grid.major = element_blank(),\n    panel.grid.minor = element_blank()\n  ) +\n  \n  # customize colors\n  scale_color_manual(values = c(\"2016\" = \"turquoise\", \"2019\" = \"forestgreen\")) +\n  scale_fill_manual(values = c(\"2016\" = \"turquoise\", \"2019\" = \"forestgreen\"))\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead.\n\n\n`geom_line()`: Each group consists of only one observation.\nℹ Do you need to adjust the group aesthetic?"
+  },
+  {
+    "objectID": "code/final_exam.html#i.-write-a-caption-for-your-figure.",
+    "href": "code/final_exam.html#i.-write-a-caption-for-your-figure.",
+    "title": "ENV S 193DS Final",
+    "section": "i. Write a caption for your figure.",
+    "text": "i. Write a caption for your figure.\nFigure 5. Swift Parrot Nest Box Occupancy Probability by Distance to Forest Edge and Season\nThis figure shows the relationship between the distance to the forest edge and year to the probability of a nest box being occupied by the Swift Parrot. The points represent the observed occupancy data and lines drawn between the points show the model-predicted probabilities taken from Model #2; shaded ribbons are supposed to represent the corresponding 95% confidence intervals. This plot illustrates that there is a decline in occupancy probability as distance from the forest edge increases as we see seasonal differences represented by there being separate prediction lines for each year (Data source: Adapted from Stojanovic et al. (2021), “Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird.” Biological Conservation, 258, 109136)"
+  },
+  {
+    "objectID": "code/final_exam.html#j.-calculate-model-predictions",
+    "href": "code/final_exam.html#j.-calculate-model-predictions",
+    "title": "ENV S 193DS Final",
+    "section": "j. Calculate model predictions",
+    "text": "j. Calculate model predictions\n\n# define specific values of 'edge distance' that want predictions for (just 0 to 900 m from forest edge)\nnew_edge_distances &lt;- c(0, 900)\n\n# get model predictions at these points, for each season\npred_points &lt;- emmeans(mod2, \n                      ~ season,                 # predict by season/year\n                      at = list(`edge distance` = new_edge_distances),  # at 0 m and at 900 m\n                      type = \"response\")        # return predictions on response scale (probabilities)\n\n# convert to data frame so can view it easier \npred_points_df &lt;- as.data.frame(pred_points)\n\n# display results\nprint(pred_points_df)\n\n season      prob         SE  df  asymp.LCL asymp.UCL\n 2016   0.2664538 0.04491708 Inf 0.18799339 0.3630207\n 2019   0.1428414 0.03206215 Inf 0.09069866 0.2177815\n\nResults are averaged over the levels of: edge distance \nConfidence level used: 0.95 \nIntervals are back-transformed from the logit scale"
+  },
+  {
+    "objectID": "code/final_exam.html#k.-interpret-your-results",
+    "href": "code/final_exam.html#k.-interpret-your-results",
+    "title": "ENV S 193DS Final",
+    "section": "k. Interpret your results",
+    "text": "k. Interpret your results\nThe figure made in part h (Figure 5) shows the model predictions of the probability of nest box occupancy by the Swift Parrot as a function of distance from the forest edge, with separate lines for each season (2016 and 2019). The predicted probabilities calculated at specific distances (0 to 900 m) made in part j reveal that occupancy is higher at the forest edge and as distance from the forest edge increased to 900 m, the probability of occupancy decreased rapidly; this indicates a significant negative relationship between distance and the probability of occupancy. This trend likely reflects the species’ preference or dependence on forest edge habitats for food availability and protection from predation and differences between the two seasons analyzed may reflect annual variations in species population or environmental conditions that affect the suitability of the habitat. This trend is also in opposition to a comperting species examined in the study, the Tree Martin, who’s occupancy of nest boxes increases with their distance from the forest edge in both 2016 and 2019."
+  },
+  {
+    "objectID": "code/final_exam.html#a.-comparing-visualizations",
+    "href": "code/final_exam.html#a.-comparing-visualizations",
+    "title": "ENV S 193DS Final",
+    "section": "a. Comparing visualizations",
+    "text": "a. Comparing visualizations\nThe exploratory visualization I made for Homework 2 is much more traditional in the sense that it is a box-plot that shows the correlation between productivity level and the type of music listened to for a handful of study session data entries. The affective visualization made for Homework 3 tells a more complete story about how each type of music affected my studying through the use of color, notes about my emotions and mental state, and differing sizes of brain waves\nBetween the visualizations I would say there are similarities in that greater productivity is associated more closely with listening to classical or ambient music. Both also show that I am less focused and productive when listening to elctropop and folk music\nHomework 2 contains less data entries to work off of than Homework 3 but overall the trend stayed the same; greater productivity and focus is associated with classical and ambient music and more distraction is associated with electropop and folk music. I would say that it is hard to make definitive conclusions, as there are more instances where I am listening to either classical or ambient music while studying than when I choose to listen to electropop or folk music, meaning that the sample size for these music types is greater and more predictable.\nI got some feedback about how to orient the visualization as I was having trouble figuring out how to do a horizontal color gradient and a peer recommended I try orienting it diagonally across my paper which worked better. Also, this wasn’t a recommendation from a classmate or instrcutor, but I decided to pivot my visualization a bit from my initail sketch to use brain waves as the representation of the focus level, which I feel worked better to convey how I was feeling in each study session based on the music type"
+  },
+  {
+    "objectID": "code/final_exam.html#b.-sharing-your-affective-visualization",
+    "href": "code/final_exam.html#b.-sharing-your-affective-visualization",
+    "title": "ENV S 193DS Final",
+    "section": "b. Sharing your affective visualization",
+    "text": "b. Sharing your affective visualization\nAttendance to workshop 10 during Week 10 :)"
+  }
+]
