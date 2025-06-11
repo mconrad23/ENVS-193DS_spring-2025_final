@@ -232,7 +232,7 @@ ggplot() +
   # predicted probabilities as lines that are grouped by season/year 
   geom_line(data = preds_df,
             aes(x = `edge distance`, y = prob, color = factor(season), group = season),
-            size = 1) +
+            linewidth = 1) +
   
   # confidence intervals as ribbons
   geom_ribbon(data = preds_df,
