@@ -261,29 +261,39 @@ This figure shows the relationship between the distance to the forest edge and y
 
 ## j. Calculate model predictions 
 
-Calculate the predicted probabilities of Swift Parrot nest box occupancy with 95% at 0 m from forest edge and 900 m from forest edge for each level in season.
+```{r}
 
-Show and annotate all code. Display the output.
+# define specific values of 'edge distance' that want predictions for (just 0 to 900 m from forest edge)
+new_edge_distances <- c(0, 900)
 
+# get model predictions at these points, for each season
+pred_points <- emmeans(mod2, 
+                      ~ season,                 # predict by season/year
+                      at = list(`edge distance` = new_edge_distances),  # at 0 m and at 900 m
+                      type = "response")        # return predictions on response scale (probabilities)
+
+# convert to data frame so can view it easier 
+pred_points_df <- as.data.frame(pred_points)
+
+# display results
+print(pred_points_df)
+
+```
 ## k. Interpret your results 
 
-Write 3-5 sentences summarizing what you found, making references to the figure you made in part h and the predictions you calculated in part j. Your summary should include your interpretation of:
-
-the predicted probability of occupancy at the forest edge (0 m) and farther away from the forest edge (900 m) between seasons
-the relationship between distance from forest edge and probability of occupancy
-the biology behind the trends you found - what explains the relationship between distance from forest edge and probability of Swift Parrot nest box occupancy?
+The figure made in part h (Figure 5) shows the model predictions of the probability of nest box occupancy by the Swift Parrot as a function of distance from the forest edge, with separate lines for each season (2016 and 2019). The predicted probabilities calculated at specific distances (0 to 900 m) made in part j reveal that occupancy is higher at the forest edge and as distance from the forest edge increased to 900 m, the probability of occupancy decreased rapidly; this indicates a significant negative relationship between distance and the probability of occupancy. This trend likely reflects the species' preference or dependence on forest edge habitats for food availability and protection from predation and differences between the two seasons analyzed may reflect annual variations in species population or environmental conditions that affect the suitability of the habitat. This trend is also in opposition to a comperting species examined in the study, the Tree Martin, who's occupancy of nest boxes increases with their distance from the forest edge in both 2016 and 2019. 
 
 # Problem 4. Affective and exploratory visualizations
 
 ## a. Comparing visualizations
 
-### How are the visualizations different from each other in the way you have represented your data?
+The exploratory visualization I made for Homework 2 is much more traditional in the sense that it is a box-plot that shows the correlation between productivity level and the type of music listened to for a handful of study session data entries. The affective visualization made for Homework 3 tells a more complete story about how each type of music affected my studying through the use of color, notes about my emotions and mental state, and differing sizes of brain waves 
 
-### What similarities do you see between all your visualizations?
+Between the visualizations I would say there are similarities in that greater productivity is associated more closely with listening to classical or ambient music. Both also show that I am less focused and productive when listening to elctropop and folk music 
 
-### What patterns (e.g. differences in means/counts/proportions/medians, trends through time, relationships between variables) do you see in each visualization? Are these different between visualizations? If so, why? If not, why not?
+Homework 2 contains less data entries to work off of than Homework 3 but overall the trend stayed the same; greater productivity and focus is associated with classical and ambient music and more distraction is associated with electropop and folk music. I would say that it is hard to make definitive conclusions, as there are more instances where I am listening to either classical or ambient music while studying than when I choose to listen to electropop or folk music, meaning that the sample size for these music types is greater and more predictable. 
 
-### What kinds of feedback did you get during week 9 in workshop or from the instructors? How did you implement or try those suggestions? If you tried and kept those suggestions, explain how and why; if not, explain why not.
+I got some feedback about how to orient the visualization as I was having trouble figuring out how to do a horizontal color gradient and a peer recommended I try orienting it diagonally across my paper which worked better. Also, this wasn't a recommendation from a classmate or instrcutor, but I decided to pivot my visualization a bit from my initail sketch to use brain waves as the representation of the focus level, which I feel worked better to convey how I was feeling in each study session based on the music type 
 
 ## b. Sharing your affective visualization 
 
